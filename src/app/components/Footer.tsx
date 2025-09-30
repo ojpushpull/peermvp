@@ -9,9 +9,9 @@ export default function Footer() {
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {/* Logo and Description */}
             <div className="col-span-1 md:col-span-2">
-              <h3 className="text-2xl font-bold mb-4">Personal</h3>
+              <h3 className="text-2xl font-bold mb-4">nycpeerguide</h3>
               <p className="text-gray-400 mb-4">
-                Helping people live better lives through digital solutions.
+                Connecting peers across New York City to build stronger communities and support networks.
               </p>
               <div className="flex space-x-4">
               <a href="#" className="text-gray-400 hover:text-[#06b6d4] transition-colors">
@@ -44,13 +44,8 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link href="/services" className="text-gray-400 hover:text-[#f59e0b] transition-colors">
-                    Services
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/contact" className="text-gray-400 hover:text-[#f59e0b] transition-colors">
-                    Contact
+                  <Link href="/jobs" className="text-gray-400 hover:text-[#f59e0b] transition-colors">
+                    Jobs
                   </Link>
                 </li>
               </ul>
@@ -70,7 +65,7 @@ export default function Footer() {
   
           <div className="border-t border-gray-800 mt-8 pt-8 text-center">
             <p className="text-gray-400">
-              &copy; {currentYear} Recoverly, All rights reserved.
+              &copy; {currentYear} nycpeerguide, All rights reserved.
             </p>
           </div>
         </div>
