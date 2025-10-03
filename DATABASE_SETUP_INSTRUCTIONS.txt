@@ -1,0 +1,91 @@
+DATABASE SETUP INSTRUCTIONS - SUPABASE
+========================================
+
+Follow these steps to set up your PostgreSQL database using Supabase:
+
+STEP 1: Create Supabase Account
+--------------------------------
+1. Go to https://supabase.com
+2. Click "Start your project" or "Sign up"
+3. Sign up with GitHub, Google, or email
+4. Complete the registration process
+
+STEP 2: Create a New Project
+-----------------------------
+1. Once logged in, click "New Project"
+2. Fill in the project details:
+   - Name: peermvp (or any name you prefer)
+   - Database Password: Create a strong password (SAVE THIS PASSWORD!)
+   - Region: Choose the closest region to you (e.g., US East)
+   - Pricing Plan: Select "Free" tier
+3. Click "Create new project"
+4. Wait for the project to be provisioned (takes 1-2 minutes)
+
+STEP 3: Get Your Database Connection String
+--------------------------------------------
+1. Once your project is ready, go to Project Settings (gear icon in sidebar)
+2. Click on "Database" in the left menu
+3. Scroll down to "Connection string" section
+4. You'll see two options:
+   - "URI" - Standard connection string
+   - "Connection Pooling" - Pooled connection (RECOMMENDED)
+
+5. Click on "Connection Pooling" tab
+6. Copy the connection string that looks like:
+   postgresql://postgres.[PROJECT-REF]:[YOUR-PASSWORD]@aws-0-us-east-1.pooler.supabase.com:6543/postgres
+
+IMPORTANT: Replace [YOUR-PASSWORD] in the connection string with the password you created in Step 2!
+
+STEP 4: Update Your .env File
+------------------------------
+1. Open the .env file in your project root directory
+2. Replace the DATABASE_URL line with your Supabase connection string:
+
+   DATABASE_URL="postgresql://postgres.[PROJECT-REF]:[YOUR-PASSWORD]@aws-0-us-east-1.pooler.supabase.com:6543/postgres"
+
+3. Make sure to use the Connection Pooling URL, not the direct connection URL
+4. Save the .env file
+
+STEP 5: Run Database Migrations
+--------------------------------
+1. Open your terminal in the project directory
+2. Run the following command:
+
+   npx prisma migrate dev --name init
+
+3. This will:
+   - Connect to your Supabase database
+   - Create all necessary tables (jobs table with indexes)
+   - Generate the Prisma client
+
+4. You should see output confirming the migration was successful
+
+STEP 6: Verify Database Setup (Optional)
+-----------------------------------------
+You can verify your database is set up correctly in two ways:
+
+Option A: Using Prisma Studio
+   npx prisma studio
+
+   This opens a GUI to view your database
+
+Option B: Using Supabase Dashboard
+   1. Go to your Supabase project dashboard
+   2. Click "Table Editor" in the sidebar
+   3. You should see a "jobs" table listed
+
+TROUBLESHOOTING
+---------------
+- If you get "connection refused": Check that you're using the Connection Pooling URL
+- If you get "authentication failed": Verify your password is correct in the connection string
+- If migration fails: Check that your .env file is in the root directory and properly formatted
+- Make sure there are no spaces around the = sign in DATABASE_URL
+
+NEXT STEPS
+----------
+Once the database is set up and migrations are complete, you're ready for Phase 2:
+- Build API routes for job listings
+- Create job listing pages
+- Implement search and filters
+
+For more help, see README.md or WEBSITE_IMPLEMENTATION_PLAN.md
