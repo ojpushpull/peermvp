@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Job {
+  id                String   @id @default(cuid())
+  title             String
+  company           String
+  location          String
+  salary            String?
+  description       String   @db.Text
+  url               String   @unique
+  source            String   // Indeed, LinkedIn, etc.
+  jobType           String?  // Full-time, Part-time, Contract
+  certificationsReq String[] // CRPA, CPS, CPRS, etc.
+  specialty         String?  // Substance Use, Mental Health, etc.
+  postedDate        DateTime?
+  scrapedAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  isActive          Boolean  @default(true)
+
+  @@index([title, company])
+  @@index([location])
+  @@index([scrapedAt])
+  @@index([source])
+  @@index([specialty])
+  @@index([isActive])
+  @@map("jobs")
+}
