@@ -8,12 +8,12 @@ export default function Hero() {
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
         <div className="text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            Connect with Peers
+            Empowering Peers Across NYC
             <span className="block text-yellow-400">Across NYC</span>
           </h1>
 
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto text-blue-100">
-            Your trusted guide to finding support, building connections, and thriving in the city that never sleeps. Join a community of peers who understand your journey.
+           Giving every peer the knowledge and information they need to perform and excel in their roles and help their clients.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -36,10 +36,6 @@ export default function Hero() {
             <div>
               <div className="text-3xl font-bold text-yellow-400">500+</div>
               <div className="text-blue-100">Active Peers</div>
-            </div>
-            <div>
-              <div className="text-3xl font-bold text-yellow-400">50+</div>
-              <div className="text-blue-100">Neighborhoods</div>
             </div>
             <div>
               <div className="text-3xl font-bold text-yellow-400">24/7</div>

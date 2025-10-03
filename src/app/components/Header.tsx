@@ -21,7 +21,7 @@ export default function Header() {
           {/* Brand */}
           <div className="flex-shrink-0">
             <Link href="/" className="text-2xl font-bold text-blue-600 hover:text-blue-700 transition-colors">
-              nycpeerguide
+             NYCPeerGuide
             </Link>
           </div>
 
