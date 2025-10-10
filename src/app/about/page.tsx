@@ -32,15 +32,15 @@ export default function AboutPage() {
               <div className="grid grid-cols-1 gap-6">
                 <div>
                   <div className="text-4xl font-bold text-blue-600">500+</div>
-                  <div className="text-gray-700">Active Community Members</div>
+                  <div className="text-gray-700">Jobs On This Site</div>
                 </div>
                 <div>
                   <div className="text-4xl font-bold text-blue-600">50+</div>
-                  <div className="text-gray-700">NYC Neighborhoods Served</div>
+                  <div className="text-gray-700">Training Programs</div>
                 </div>
                 <div>
                   <div className="text-4xl font-bold text-blue-600">1000+</div>
-                  <div className="text-gray-700">Connections Made</div>
+                  <div className="text-gray-700">Peers Supported</div>
                 </div>
               </div>
             </div>
@@ -48,7 +48,7 @@ export default function AboutPage() {
         </div>
       </div>
 
-      {/* How It Works Section */}
+      {/* How It Works Section 
       <div className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -90,9 +90,9 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
-      {/* Community Impact Section */}
+      {/* Community Impact Section 
       <div className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
@@ -134,15 +134,15 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Get Involved Section */}
       <div className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="bg-gradient-to-r from-blue-600 to-indigo-700 rounded-2xl p-12 text-center text-white">
-            <h2 className="text-3xl font-bold mb-4">Ready to Get Involved?</h2>
+            <h2 className="text-3xl font-bold mb-4">Access our information</h2>
             <p className="text-xl mb-8 text-blue-100">
-              Join thousands of New Yorkers who are building stronger communities together
+              Sign up for our newsletter to get our knowledge filled emails on a regular basis. 
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
@@ -152,7 +152,7 @@ export default function AboutPage() {
                 Find Opportunities
               </a>
               <button className="inline-flex items-center justify-center px-8 py-3 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-blue-700 transition-colors">
-                Join Community
+                Signup
               </button>
             </div>
           </div>

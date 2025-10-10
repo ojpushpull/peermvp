@@ -53,7 +53,6 @@ export default async function Homepage() {
     { label: 'Full-time', href: '/jobs?jobType=Full-time', icon: '⏰' },
     { label: 'Substance Use', href: '/jobs?specialty=Substance%20Use', icon: '🏥' },
     { label: 'Mental Health', href: '/jobs?specialty=Mental%20Health', icon: '🧠' },
-    { label: 'Brooklyn', href: '/jobs?location=Brooklyn', icon: '📍' },
   ]
 
   return (
@@ -134,7 +133,7 @@ export default async function Homepage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {featuredJobs.map((job) => (
-                <JobCard key={job.id} job={job} />
+                <JobCard key={job.id} job={job as any} />
               ))}
             </div>
 
