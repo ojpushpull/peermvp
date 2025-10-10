@@ -25,17 +25,8 @@ export default function AboutPage() {
               NYC peer guides goal is to help peers get connected with jobs and skills that will further their career.
               </p>
               <p className="text-lg text-gray-700 mb-6">
-                Our platform connects individuals who understand each other's challenges, whether they're navigating recovery, mental health, career transitions, or simply seeking genuine community in the fast-paced environment of New York City.
+                Currently NYC Peer Guide offers a job board for peer jobs with a goal of expanding to be an encompassing resource for all peers in NYC.
               </p>
-              <div className="bg-blue-50 p-6 rounded-lg">
-                <h3 className="font-semibold text-blue-900 mb-2">Core Values</h3>
-                <ul className="text-blue-800 space-y-1">
-                  <li>• Lived experience matters</li>
-                  <li>• Community over isolation</li>
-                  <li>• Mutual support and respect</li>
-                  <li>• Accessible resources for all</li>
-                </ul>
-              </div>
             </div>
             <div className="bg-gradient-to-br from-blue-100 to-indigo-200 rounded-2xl p-8 text-center">
               <div className="grid grid-cols-1 gap-6">
