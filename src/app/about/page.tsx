@@ -56,7 +56,7 @@ export default function AboutPage() {
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               We make it easy to find your community and access the support you need
             </p>
-          </div>
+          </div> 
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
@@ -65,7 +65,7 @@ export default function AboutPage() {
               </div>
               <h3 className="text-xl font-semibold text-gray-900 mb-3">Connect</h3>
               <p className="text-gray-600">
-                Find peers in your neighborhood or across NYC who share similar experiences and challenges.
+                Find jobs that will help you further your career.
               </p>
             </div>
 
