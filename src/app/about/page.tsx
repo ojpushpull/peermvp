@@ -9,7 +9,7 @@ export default function AboutPage() {
               About NYC Peer Guide
             </h1>
             <p className="text-xl md:text-2xl max-w-3xl mx-auto text-blue-100">
-              Connecting peers across New York City to build stronger communities, share experiences, and support each other's journey.
+              Linking peers to resources and opportunities in New York City.
             </p>
           </div>
         </div>
@@ -22,7 +22,7 @@ export default function AboutPage() {
             <div>
               <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Mission</h2>
               <p className="text-lg text-gray-700 mb-6">
-                NYC Peer Guide exists to bridge the gaps that often leave people feeling isolated in one of the world's most populous cities. We believe that lived experience is one of the most powerful tools for healing, growth, and positive change.
+              NYC peer guides goal is to help peers get connected with jobs and skills that will further their career.
               </p>
               <p className="text-lg text-gray-700 mb-6">
                 Our platform connects individuals who understand each other's challenges, whether they're navigating recovery, mental health, career transitions, or simply seeking genuine community in the fast-paced environment of New York City.
