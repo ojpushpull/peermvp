@@ -1,219 +1,83 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
-import { JobFilterSchema } from '@/types/job'
-import { IndeedScraper } from '@/lib/scrapers/indeed'
-import { Prisma } from '@prisma/client'
+import { NextResponse } from 'next/server';
+import { prisma } from '@/lib/db';
 
-/**
- * GET /api/jobs
- * Fetch jobs with filtering, pagination, and search
- */
-export async function GET(request: NextRequest) {
+import { JobFilterSchema } from '@/types/job';
+
+export async function GET(request: Request) {
+  const { searchParams } = new URL(request.url);
+  const queryParams = Object.fromEntries(searchParams.entries());
+
+  const validation = JobFilterSchema.safeParse(queryParams);
+
+  if (!validation.success) {
+    return NextResponse.json({ error: 'Invalid query parameters', details: validation.error.flatten() }, { status: 400 });
+  }
+
+  const { page, limit, search, ...filters } = validation.data;
+
+  const where: any = {
+    isActive: true,
+  };
+
+  if (search) {
+    where.OR = [
+      { title: { contains: search, mode: 'insensitive' } },
+      { description: { contains: search, mode: 'insensitive' } },
+      { company: { contains: search, mode: 'insensitive' } },
+    ];
+  }
+
+  for (const key in filters) {
+    if (filters[key as keyof typeof filters]) {
+      where[key] = filters[key as keyof typeof filters];
+    }
+  }
+
   try {
-    const { searchParams } = new URL(request.url)
-
-    // Parse and validate query parameters
-    const filterParams = {
-      page: searchParams.get('page') || '1',
-      limit: searchParams.get('limit') || '50',
-      location: searchParams.get('location') || undefined,
-      jobType: searchParams.get('jobType') || undefined,
-      specialty: searchParams.get('specialty') || undefined,
-      certification: searchParams.get('certification') || undefined,
-      source: searchParams.get('source') || undefined,
-      search: searchParams.get('search') || undefined,
-    }
-
-    const filters = JobFilterSchema.parse(filterParams)
-
-    // Build Prisma where clause
-    const where: Prisma.JobWhereInput = {
-      isActive: true,
-    }
-
-    // Location filter
-    if (filters.location) {
-      where.location = {
-        contains: filters.location,
-        mode: 'insensitive',
-      }
-    }
-
-    // Job type filter
-    if (filters.jobType) {
-      where.jobType = filters.jobType
-    }
-
-    // Specialty filter
-    if (filters.specialty) {
-      where.specialty = {
-        contains: filters.specialty,
-        mode: 'insensitive',
-      }
-    }
-
-    // Certification filter
-    if (filters.certification) {
-      where.certificationsReq = {
-        has: filters.certification,
-      }
-    }
-
-    // Source filter
-    if (filters.source) {
-      where.source = filters.source
-    }
-
-    // Search filter (searches title, company, and description)
-    if (filters.search) {
-      where.OR = [
-        {
-          title: {
-            contains: filters.search,
-            mode: 'insensitive',
-          },
-        },
-        {
-          company: {
-            contains: filters.search,
-            mode: 'insensitive',
-          },
-        },
-        {
-          description: {
-            contains: filters.search,
-            mode: 'insensitive',
-          },
-        },
-      ]
-    }
-
-    // Calculate pagination
-    const skip = (filters.page - 1) * filters.limit
-    const take = filters.limit
-
-    // Execute queries
-    const [jobs, totalCount] = await Promise.all([
+    const [jobs, totalJobs] = await prisma.$transaction([
       prisma.job.findMany({
         where,
-        skip,
-        take,
+        skip: (page - 1) * limit,
+        take: limit,
         orderBy: {
-          scrapedAt: 'desc',
-        },
-        select: {
-          id: true,
-          title: true,
-          company: true,
-          location: true,
-          salary: true,
-          description: true,
-          url: true,
-          source: true,
-          jobType: true,
-          certificationsReq: true,
-          specialty: true,
-          postedDate: true,
-          scrapedAt: true,
-          updatedAt: true,
+          postedDate: 'desc',
         },
       }),
       prisma.job.count({ where }),
-    ])
+    ]);
 
-    const totalPages = Math.ceil(totalCount / filters.limit)
+    const totalPages = Math.ceil(totalJobs / limit);
 
     return NextResponse.json({
-      success: true,
-      data: {
-        jobs,
-        pagination: {
-          page: filters.page,
-          limit: filters.limit,
-          total: totalCount,
-          totalPages,
-          hasMore: filters.page < totalPages,
-        },
+      jobs,
+      metadata: {
+        totalJobs,
+        totalPages,
+        currentPage: page,
+        limit,
       },
-    })
+    });
   } catch (error) {
-    console.error('GET /api/jobs error:', error)
-
-    if (error instanceof Error) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: error.message,
-        },
-        { status: 400 }
-      )
-    }
-
-    return NextResponse.json(
-      {
-        success: false,
-        error: 'Internal server error',
-      },
-      { status: 500 }
-    )
+    console.error('Failed to fetch jobs:', error);
+    return NextResponse.json({ error: 'Failed to fetch jobs' }, { status: 500 });
   }
 }
 
-/**
- * POST /api/jobs
- * Trigger manual scraping (for testing/admin use)
- */
-export async function POST(request: NextRequest) {
+import { IndeedScraper } from '@/lib/scrapers/indeed';
+
+export async function POST(request: Request) {
   try {
-    const body = await request.json()
-    const { source = 'Indeed' } = body
+    // TODO: Add authentication to protect this endpoint
+    console.log('Manual scrape triggered.');
 
-    // Currently only Indeed scraper is implemented
-    if (source !== 'Indeed') {
-      return NextResponse.json(
-        {
-          success: false,
-          error: 'Only Indeed scraper is currently available',
-        },
-        { status: 400 }
-      )
-    }
+    const scraper = new IndeedScraper();
+    const result = await scraper.scrape();
 
-    // Run the scraper
-    const scraper = new IndeedScraper()
-    const result = await scraper.scrape()
+    console.log('Scrape finished.', result);
 
-    return NextResponse.json({
-      success: true,
-      data: {
-        source: result.source,
-        jobsScraped: result.jobsScraped,
-        jobsSaved: result.jobsSaved,
-        duplicatesSkipped: result.duplicatesSkipped,
-        errors: result.errors,
-        duration: result.duration,
-        message: `Scraping completed in ${(result.duration / 1000).toFixed(2)}s`,
-      },
-    })
+    return NextResponse.json({ message: 'Scrape completed successfully', result });
   } catch (error) {
-    console.error('POST /api/jobs error:', error)
-
-    if (error instanceof Error) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: error.message,
-        },
-        { status: 500 }
-      )
-    }
-
-    return NextResponse.json(
-      {
-        success: false,
-        error: 'Scraping failed',
-      },
-      { status: 500 }
-    )
+    console.error('Failed to trigger scrape:', error);
+    return NextResponse.json({ error: 'Failed to trigger scrape' }, { status: 500 });
   }
 }

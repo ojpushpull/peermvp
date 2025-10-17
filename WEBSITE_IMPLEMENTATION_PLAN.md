@@ -3,7 +3,7 @@
 ## Project Overview
 **Project Name:** PeerMVP - Job Board Aggregator for Recovery Peer Professionals
 **Technology Stack:** Next.js 15, TypeScript, Tailwind CSS v4, PostgreSQL, Prisma, Puppeteer
-**Current Status:** Phase 1 Complete - Database & Scraper Foundation Built
+**Current Status:** Phase 2.1 Complete - Jobs API Route Implemented
 **Target:** Certified Recovery Peer Advocates, Recovery Coaches, Peer Specialists in healthcare
 
 ## Current State Assessment (Updated: 2025-10-03)
@@ -26,7 +26,6 @@
 - Scraper testing (pending database setup)
 
 ### ❌ Phase 2+ To Build
-- API routes for jobs (GET with filters, POST for scraping)
 - Jobs listing page with pagination
 - Job detail pages
 - Search and filter components
@@ -457,7 +456,7 @@ src/
 - [ ] Database populated with initial job data (pending database connection)
 
 ### Phase 2 Success Criteria (API & Job Display)
-- [ ] Jobs API route returning paginated, filtered results
+- [x] Jobs API route returning paginated, filtered results
 - [ ] Jobs listing page displaying cards with real data
 - [ ] Pagination working (50 jobs per page)
 - [ ] Job detail pages rendering full descriptions
